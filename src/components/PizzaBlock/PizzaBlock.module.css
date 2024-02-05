@@ -1,0 +1,135 @@
+.pizza__block {
+  width: 280px;
+  text-align: center;
+  margin-bottom: 65px;
+  background-color: #fff;
+  border-radius: 20px;
+}
+.pizza__block_image {
+  width: 230px;
+  margin-top: 5px;
+}
+.pizza__block_title {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+.pizza__block_selector {
+  display: flex;
+  background-color: #cbcbcb;
+  border-radius: 10px;
+  flex-direction: column;
+  padding: 6px;
+}
+.pizza__block_selector ul {
+  display: flex;
+  flex: 1;
+  margin: 0px;
+  padding: 0px;
+}
+.pizza__block_selector ul:first-of-type {
+  margin-bottom: 6px;
+}
+.pizza__block_selector ul li {
+  padding: 8px;
+  flex: 1;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+}
+.pizza__block_selector ul li.active {
+  background: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+  border-radius: 5px;
+  cursor: auto;
+}
+.pizza__block_bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.pizza__block_price {
+  font-weight: bold;
+  font-size: 19px;
+  line-height: 27px;
+  letter-spacing: 0.015em;
+  margin-left: 5px;
+}
+.button {
+  display: inline-block;
+  background-color: #f3f3f3;
+  border-radius: 30px;
+  padding: 10px 15px;
+  min-width: 100px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+  border: 1px solid transparent;
+}
+.button:hover {
+  background-color: darken(#f3f3f3, 8%);
+}
+
+.button:active {
+  background-color: darken(#f3f3f3, 12%);
+  transform: translateY(1px);
+}
+.button_outline {
+  background-color: #ff8b17;
+}
+.button_outline span {
+  color: #f3f3f3;
+}
+.button_outline svg path {
+  fill: #f3f3f3;
+}
+.button_outline:hover {
+  background-color: #a86105;
+}
+.button_outline:hover span {
+  color: #fff;
+}
+.button_outline:hover svg path {
+  color: #000;
+}
+.button_outline:active {
+  background-color: darken(#f3f3f3, 8%);
+}
+.button_add svg {
+  margin-right: 2px;
+}
+
+.button_add span {
+  font-weight: 600;
+  font-size: 16px;
+}
+.button_num {
+  background-color: #fff;
+  margin-left: 8px;
+  border-radius: 50%;
+  padding: 1px 7px;
+}
+@media (max-width: 400px) {
+  .pizza__block {
+    width: 220px;
+  }
+  .pizza__block_image {
+    width: 170px;
+  }
+  .pizza__block_title {
+    font-size: 16px;
+  }
+  .pizza__block_bottom {
+    display: block;
+    margin-top: 8px;
+  }
+  .pizza__block_price {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+}
