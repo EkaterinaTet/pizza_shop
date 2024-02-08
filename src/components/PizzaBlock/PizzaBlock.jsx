@@ -1,29 +1,47 @@
 import s from "./PizzaBlock.module.css";
+import { useState } from "react";
 
-function PizzaBlock() {
+function PizzaBlock({ imageUrl, price, title, sizes, types }) {
+  const [pizzaCount, setPizzaCount] = useState(0);
+  const [activeSize, setActiveSize] = useState(1);
+  const [activeType, setActiveType] = useState(0);
+
+  const typeName = ["тонкое", "традиционное"];
+
   return (
     <div className={s.pizza__block}>
-      {" "}
-      <img
-        className={s.pizza__block_image}
-        src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-        alt="Pizza"
-      />
-      <h4 className={s.pizza__block_title}>Чизбургер-пицца</h4>
+      <img className={s.pizza__block_image} src={imageUrl} alt="Pizza" />
+      <h4 className={s.pizza__block_title}>{title}</h4>
       <div className={s.pizza__block_selector}>
         <ul>
-          <li className={s.active}>тонкое</li>
-          <li>традиционное</li>
+          {types.map((type, i) => (
+            <li
+              onClick={() => setActiveType(i)}
+              key={type}
+              className={activeType === i ? s.active : ""}
+            >
+              {typeName[type]}
+            </li>
+          ))}
         </ul>
         <ul>
-          <li className={s.active}>26 см.</li>
-          <li>32 см.</li>
-          <li>40 см.</li>
+          {sizes.map((size, index) => (
+            <li
+              onClick={() => setActiveSize(index)}
+              key={size}
+              className={activeSize === index ? s.active : ""}
+            >
+              {size} см.
+            </li>
+          ))}
         </ul>
       </div>
       <div className={s.pizza__block_bottom}>
-        <div className={s.pizza__block_price}>от 395 ₽</div>
-        <div className={`${s.button} ${s.button_outline} ${s.button_add}`}>
+        <div className={s.pizza__block_price}>от {price} ₽</div>
+        <button
+          onClick={() => setPizzaCount(pizzaCount + 1)}
+          className={`${s.button} ${s.button_outline} ${s.button_add}`}
+        >
           <svg
             width="12"
             height="12"
@@ -37,8 +55,8 @@ function PizzaBlock() {
             />
           </svg>
           <span>Добавить</span>
-          <i className={s.button_num}>2</i>
-        </div>
+          {pizzaCount === 0 ? "" : <i className={s.button_num}>{pizzaCount}</i>}
+        </button>
       </div>
     </div>
   );

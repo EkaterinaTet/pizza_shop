@@ -12,8 +12,10 @@
 .pizza__block_title {
   font-size: 20px;
   font-weight: 900;
-  margin-bottom: 20px;
   margin-top: 0;
+  max-width: 200px;
+  height: 54px;
+  margin: 0 auto;
 }
 .pizza__block_selector {
   display: flex;
@@ -21,6 +23,7 @@
   border-radius: 10px;
   flex-direction: column;
   padding: 6px;
+  margin-top: 10px;
 }
 .pizza__block_selector ul {
   display: flex;
