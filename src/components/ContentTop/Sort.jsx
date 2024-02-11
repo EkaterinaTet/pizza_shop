@@ -1,5 +1,5 @@
 import s from "./ContentTop.module.css";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const sortList = [
   {
@@ -31,8 +31,25 @@ export const sortList = [
 function Sort({ sortType, onClickSortType }) {
   const [popup, setPopup] = useState(false);
 
+  const sortRef = useRef();
+
+  //убираю попап окно по клику на body
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.composedPath().includes(sortRef.current)) {
+        // console.log("click");
+        setPopup(false);
+      }
+    };
+    document.body.addEventListener("click", handleClickOutside);
+    //размонтировать unmount
+    return () => {
+      document.body.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className={s.sort}>
+    <div ref={sortRef} className={s.sort}>
       <div className={s.sort__label}>
         <svg
           width="10"

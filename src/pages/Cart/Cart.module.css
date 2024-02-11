@@ -213,3 +213,31 @@
   color: #8d0a0a;
   font-size: 20px;
 }
+.cart__empty {
+  margin: 0 auto;
+  width: 560px;
+  text-align: center;
+}
+.cart__empty h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.cart__empty p {
+  font-size: 18px;
+  line-height: 145.4%;
+  letter-spacing: 0.01em;
+  color: #777777;
+}
+
+.cart__empty i {
+  font-style: normal;
+  position: relative;
+  top: 2px;
+}
+
+.cart__empty img {
+  display: block;
+  width: 300px;
+  margin: 45px auto 60px;
+}
