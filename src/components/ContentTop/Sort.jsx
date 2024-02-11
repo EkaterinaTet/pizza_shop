@@ -1,35 +1,35 @@
 import s from "./ContentTop.module.css";
 import { useState } from "react";
 
+const sortList = [
+  {
+    name: "популярности (убывание)",
+    sortProperty: "rating",
+  },
+  {
+    name: "популярности (возрастание)",
+    sortProperty: "-rating",
+  },
+  {
+    name: "цене (убывание)",
+    sortProperty: "price",
+  },
+  {
+    name: "цене (возрастание)",
+    sortProperty: "-price",
+  },
+  {
+    name: "алфавиту (убывание)",
+    sortProperty: "title",
+  },
+  {
+    name: "алфавиту (возрастание)",
+    sortProperty: "-title",
+  },
+];
+
 function Sort({ sortType, onClickSortType }) {
   const [popup, setPopup] = useState(false);
-
-  const sort = [
-    {
-      name: "популярности (убывание)",
-      sortProperty: "rating",
-    },
-    {
-      name: "популярности (возрастание)",
-      sortProperty: "-rating",
-    },
-    {
-      name: "цене (убывание)",
-      sortProperty: "price",
-    },
-    {
-      name: "цене (возрастание)",
-      sortProperty: "-price",
-    },
-    {
-      name: "алфавиту (убывание)",
-      sortProperty: "title",
-    },
-    {
-      name: "алфавиту (возрастание)",
-      sortProperty: "-title",
-    },
-  ];
 
   return (
     <div className={s.sort}>
@@ -52,7 +52,7 @@ function Sort({ sortType, onClickSortType }) {
       {popup && (
         <div className={s.sort__popup}>
           <ul>
-            {sort.map((obj, i) => (
+            {sortList.map((obj, i) => (
               <li
                 onClick={() => {
                   onClickSortType(obj);

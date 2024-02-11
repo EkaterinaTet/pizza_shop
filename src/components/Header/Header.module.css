@@ -49,6 +49,28 @@
 .button_cart_sum {
   font-size: 16px;
 }
+.search {
+  margin-top: 30px;
+  position: relative;
+}
+.search p {
+  position: absolute;
+  right: 6px;
+  top: -10px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: all 0.4s ease;
+}
+.search p:hover {
+  opacity: 0.8;
+}
+.search_input {
+  height: 35px;
+  padding: 10px 14px;
+}
+.search_input:focus {
+  border: 2px solid #c9660a;
+}
 @media (max-width: 450px) {
   .header h1 {
     font-size: 16px;
