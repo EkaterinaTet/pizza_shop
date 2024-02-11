@@ -1,7 +1,7 @@
 import s from "./ContentTop.module.css";
 import { useState } from "react";
 
-const sortList = [
+export const sortList = [
   {
     name: "популярности (убывание)",
     sortProperty: "rating",
