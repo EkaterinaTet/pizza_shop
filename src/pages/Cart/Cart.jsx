@@ -99,7 +99,7 @@ function Cart() {
         </div>
         <div className={s.content__items}>
           {items.map((item) => (
-            <CartItem key={item.id} {...item} />
+            <CartItem key={item.id + item.size + item.type} {...item} />
           ))}
         </div>
         <div className={s.cart__bottom}>

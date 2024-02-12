@@ -10,10 +10,9 @@ function PizzaBlock({ id, imageUrl, price, title, sizes, types }) {
   const [activeType, setActiveType] = useState(0);
 
   const cartItem = useSelector((state) =>
-    state.cart.items.find((obj) => obj.id === id)
+    state.cart.items.filter((obj) => obj.id === id)
   );
-
-  const addedCount = cartItem ? cartItem.count : 0;
+  const addedCount = cartItem.reduce((sum, item) => sum + item.count, 0);
 
   const dispatch = useDispatch();
 

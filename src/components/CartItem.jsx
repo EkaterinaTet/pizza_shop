@@ -6,14 +6,14 @@ function CartItem({ id, title, price, imageUrl, type, count, size }) {
   const dispatch = useDispatch();
 
   const onClickPlus = () => {
-    dispatch(addItem({ id }));
+    dispatch(addItem({ id, type, size }));
   };
   const onClickMinus = () => {
-    dispatch(minusItem(id));
+    dispatch(minusItem({ id, type, size }));
   };
 
   const onClickRemove = () => {
-    dispatch(removeItem(id));
+    dispatch(removeItem({ id, type, size }));
   };
 
   return (
