@@ -9,8 +9,9 @@ function PizzaBlock({ id, imageUrl, price, title, sizes, types }) {
   const [activeSize, setActiveSize] = useState(1);
   const [activeType, setActiveType] = useState(0);
 
-  const cartItem = useSelector((state) =>
-    state.cart.items.filter((obj) => obj.id === id)
+  const cartItem = useSelector(
+    (state) => state.cart.items.filter((obj) => obj.id === id),
+    { devModeChecks: { stabilityCheck: "never" } }
   );
   const addedCount = cartItem.reduce((sum, item) => sum + item.count, 0);
 

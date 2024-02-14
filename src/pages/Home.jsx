@@ -1,9 +1,9 @@
-import { useState, useEffect, useContext, useRef } from "react";
+import { useEffect, useContext, useRef } from "react";
 import ContentTop from "../components/ContentTop/ContentTop";
 import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import { SearchContext } from "../App";
-import axios from "axios";
+
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
 import { sortList } from "../components/ContentTop/Sort";
@@ -13,6 +13,7 @@ import {
   setSortType,
   setFilters,
 } from "../redux/slices/filterSlice";
+import { fetchPizzas } from "../redux/slices/pizzaSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function Home() {
@@ -24,34 +25,34 @@ function Home() {
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [items, setItems] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
 
   const categoryId = useSelector((state) => state.filter.categoryId);
   const sortType = useSelector((state) => state.filter.sortType);
+  const { items, status } = useSelector((state) => state.pizza);
 
-  const fetchPizzas = () => {
-    setIsLoading(true);
+  const getPizzas = async () => {
+    // setIsLoading(true);
 
     const sortBy = sortType.sortProperty.replace("-", "");
     const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
     const category = categoryId > 0 ? `category=${categoryId}` : "";
 
-    axios
-      .get(
-        `https://65c3f08257a483fcb1432b4f.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`
-      )
-      .then((response) => {
-        setItems(response.data);
-        setIsLoading(false);
-      });
+    dispatch(
+      fetchPizzas({
+        sortBy,
+        category,
+        order,
+      })
+    );
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
 
     if (!isSearch.current) {
-      fetchPizzas();
+      getPizzas();
     }
     isSearch.current = false;
   }, [categoryId, sortType.sortProperty, searchValue]);
@@ -65,7 +66,7 @@ function Home() {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [categoryId, sortType.sortProperty]);
+  }, [categoryId, sortType.sortProperty, navigate]);
 
   useEffect(() => {
     if (window.location.search) {
@@ -83,7 +84,9 @@ function Home() {
       );
       isSearch.current = true;
     }
-  }, []);
+  }, [dispatch]);
+
+  const skeletons = [...new Array(6)].map((_, i) => <Skeleton key={i} />);
 
   return (
     <>
@@ -94,32 +97,39 @@ function Home() {
         onClickSortType={(i) => dispatch(setSortType(i))}
       />
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {isLoading
-          ? [...new Array(6)].map((_, i) => <Skeleton key={i} />)
-          : items
-              .filter((obj) => {
-                if (
-                  obj.title.toLowerCase().includes(searchValue.toLowerCase())
-                ) {
-                  return true;
-                }
-                return false;
-              })
-              .map((obj) => {
-                return (
-                  <PizzaBlock
-                    key={obj.id}
-                    {...obj}
-                    // title={obj.title}
-                    // price={obj.price}
-                    // imageUrl={obj.imageUrl}
-                    // sizes={obj.sizes}
-                    // types={obj.types}
-                  />
-                );
-              })}
-      </div>
+      {status === "error" ? (
+        <div>
+          <h2>Произошла ошибка</h2>
+          <p>Не удалось получить пиццы, попробуйте позже</p>
+        </div>
+      ) : (
+        <div className="content__items">
+          {status === "loading"
+            ? skeletons
+            : items
+                .filter((obj) => {
+                  if (
+                    obj.title.toLowerCase().includes(searchValue.toLowerCase())
+                  ) {
+                    return true;
+                  }
+                  return false;
+                })
+                .map((obj) => {
+                  return (
+                    <PizzaBlock
+                      key={obj.id}
+                      {...obj}
+                      // title={obj.title}
+                      // price={obj.price}
+                      // imageUrl={obj.imageUrl}
+                      // sizes={obj.sizes}
+                      // types={obj.types}
+                    />
+                  );
+                })}
+        </div>
+      )}
     </>
   );
 }
